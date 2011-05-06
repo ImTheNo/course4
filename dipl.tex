@@ -1,0 +1,203 @@
+\documentclass[russian,utf8,pointsubsection,emptystyle, 12pt]{eskdtext}
+\usepackage{eskdchngsheet}
+\usepackage{eskdplain}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage{verbatim}
+
+
+% \usepackage{pscyr}
+% \renewcommand{\rmdefault}{cmr}
+% \renewcommand{\sfdefault}{ftx}
+% \renewcommand{\ttdefault}{cmtt}
+
+
+\usepackage{amstext}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{mathtext}
+
+\usepackage{footnpag}
+
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+\usepackage{listings}
+\lstloadlanguages{[LaTex]Tex, C++, Ada, Java, Modula-2, Delphi, Oberon-2}
+ \lstset{ backgroundcolor=\color{white},
+	  extendedchars=true, 
+	  frame=tb
+}
+
+
+
+\usepackage{xspace}
+\usepackage{subfig}
+\usepackage{wrapfig}
+
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1]}{\end{itemize}%
+         \vspace{-.6\baselineskip}}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{shapes,snakes}
+\usetikzlibrary{shapes.geometric,shapes.arrows,decorations.pathmorphing}
+\usetikzlibrary{matrix,chains,scopes,positioning,arrows,fit,arrows,backgrounds}
+
+\usepackage{bm}
+\usepackage{threeparttable}
+\usepackage{fmtcount}
+
+\usepackage{ifpdf}
+\graphicspath{{images/}}
+\usepackage{indentfirst}
+
+%\pagestyle{myheadings}
+\usepackage{setspace}
+
+\ifpdf
+	\usepackage[pdftex]{hyperref}
+\else
+	\usepackage{hyperref}
+\fi
+
+\hypersetup{
+	unicode=true,
+	pdftitle={
+	},
+	pdfauthor={},
+	pdfkeywords={
+	},
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=blue
+}
+
+\usepackage[all]{hypcap}
+
+\usepackage[numbers,sort&compress]{natbib}
+
+% [1] -> 1. in the bibliography
+\makeatletter
+\renewcommand\@biblabel[1]{#1.}
+\makeatother
+
+
+
+\makeatletter
+\@addtoreset{equation}{section} % Equation counter
+\@addtoreset{figure}{section} % Figure counter
+\@addtoreset{table}{section} % Table counter
+\makeatother
+
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+
+
+
+\usepackage{afterpage}
+
+\ifpdf
+	\usepackage{pdflscape}
+\else
+	\usepackage{lscape}
+\fi
+
+
+\sloppy
+\Rus
+
+ \ESKDdepartment{Московский государственный университет им.~М.В.~Ломоносова}
+ \ESKDcompany{Факультет вычислительной математики и кибернетики
+ 
+ Кафедра автоматизации систем вычислительных комплексов}
+ \ESKDtitle{Интеграция средств гранулярного контроля безопасности
+ поведения приложений в ОС Линукс}
+ \ESKDauthor{Сахаров~Ф.~В.}
+ \ESKDdate{2011/04/07}
+ \renewcommand{\ESKDtheTitleFieldII}{
+% \begin{center}
+%   \includegraphics{img/msu}
+% \end{center}
+ }
+ \renewcommand{\ESKDtheTitleFieldIV}{
+ \parbox[r][5cm]{5cm}{}
+ 
+ \ESKDtheTitle}
+ \renewcommand{\ESKDtheTitleFieldVIII}{
+ \parbox[r][2.5cm]{5cm}{}
+ 
+ \begin{flushright}
+   \parbox[r]{5cm}{
+     \ESKDtheAuthor
+ 
+     Группа 522
+ 
+     кафедра АСВК
+ 
+     \textbf{Научный руководитель}
+ 
+     к.ф.-м.н.,м.н.с. Гамаюнов Д.Ю.
+   }
+ \end{flushright}
+ 
+ }
+ \renewcommand{\ESKDtheTitleFieldX}{Москва \ESKDtheYear}
+
+%  \begin{titlepage}
+%   \begin{center}
+%   \textsc{\LARGE{\textbf{Московский государственный университет}} \\[.5cm]
+%  \large{\textbf{Факультет вычислительной математики и кибернетики} \\
+%  \large{\textbf{Кафедра автоматизации систем вычислительных комплексов}} }} \\[4cm]
+% 
+% \bigskip
+% 
+% \bigskip
+% 
+% \bigskip
+% 
+% 
+%   {\Large{\textbf{Инструментальное средство автоматизации построения моделей
+%  нормального поведения приложений}}} \\[3cm]
+%   \begin{flushright}
+%   \textbf{Горнак Татьяны} \\
+%   Группа 521\\
+%   \textbf{Научный руководитель:}\\
+%  к.ф.-м.н., м.н.с. Гамаюнов Д.Ю.
+%  \end{flushright}
+%  \vfill
+%  Москва, 2010
+%  \end{center}
+% \end{titlepage}
+
+
+\begin{document}
+\maketitle
+
+
+\large{\textbf{АННОТАЦИЯ}}
+
+В работе рассматривается возможность расширения функциональности
+механизма контроля поведения программ, используемого в SELinux, при 
+помощи повышения гранулярности контроля поведения приложений
+в указанной системе за счет отслеживания внутреннего состояния
+программы из ядра. Предлагается делать это при помощи
+разметки исполнимого кода приложения контрольными точками 
+на уровне исходных текстов. 
+
+\newpage
+
+\tableofcontents
+\newpage
+
+%\input{title.tex}
+\input{part1.tex}
+\input{part2.tex}
+% \input{part3.tex}
+%\input{part4.tex}
+%\input{part5.tex}
+%\input{part6.tex}
+
+\end{document}
