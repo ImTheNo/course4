@@ -3,7 +3,7 @@ PDFLATEX=pdflatex
 DATE=$(shell date +%Y-%m-%d)
 
 dipl = dipl
-PARTS = part1.tex part2.tex part3.tex part4.tex part6.tex finalresult.tex
+PARTS = part1.tex part2.tex part3.tex part4.tex part5.tex part6.tex finalresult.tex
 
 $(dipl).pdf:$(dipl).tex $(PARTS)
 	$(PDFLATEX) $(dipl).tex
