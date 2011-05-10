@@ -1,0 +1,19 @@
+#include <tunables/global>
+
+/usr/sbin/sshd {
+    #include <abstractions/authentication>
+    #include <abstractions/base>
+    #include <abstractions/consoles>
+    #include <abstractions/nameservice>
+    #include <abstractions/wutmp>
+
+    capability sys_chroot,
+    capability sys_tty_config,
+    capability net_bind_service,
+    capability chown,
+    capability fowner,
+    capability kill,
+    capability setgid,
+    capability setuid
+    ...
+};

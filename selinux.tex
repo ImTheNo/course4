@@ -1,0 +1,21 @@
+\begin{tikzpicture}[->,<->,>=latex,grow=right]
+
+\tikzstyle{state} = [draw,rounded corners, fill=white, rectangle, minimum height=3em, minimum width=5em, node distance=7em, font={\sffamily\small}]
+\tikzstyle{stateEdgePortion} = [black,thick];
+\tikzstyle{stateEdge} = [stateEdgePortion,->, minimum width=10em,node distance=8em];
+\tikzstyle{shitEdge} = [stateEdgePortion,<->, minimum width=10em,node distance=8em];
+\tikzstyle{edgeLabel} = [pos=0.5, text centered, font={\sffamily\small}];
+
+\node[state, name=server] {SELinux};
+\node[state, name=subject, left of=server,xshift=-6em] {Процесс};
+\node[state, name=policy, below of=server, yshift=2em] {Политика};
+\node[state, name=acl, right of=server] {Есть ли права?};
+\node[state, name=notGranted, below of=acl,xshift=1em, yshift=2em] {Отказать в доступе};
+\node[state, name=granted, right of=acl, xshift=3em] {Разрешить доступ};
+
+\draw[->](subject) edge[stateEdge] node[edgeLabel,yshift=0.5em] {\emph{Системный вызов}} (server);
+\draw[<->](server) edge[shitEdge] node[edgeLabel, xshift=-3.3em,yshift=0em] {\emph{Проверка прав}} (policy);
+\draw[->](server) edge[stateEdge] node[edgeLabel,yshift=0.5em] {} (acl);
+\draw[->](acl) edge[stateEdge] node[edgeLabel,xshift=1em,yshift=0.3em] {\emph{Нет}} (notGranted);
+\draw[->](acl) edge[stateEdge] node[edgeLabel,yshift=0.5em] {\emph{Есть}} (granted);
+\end{tikzpicture}
