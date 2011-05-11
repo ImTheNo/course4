@@ -1,0 +1,17 @@
+type test1_t;
+type test1_exec_t;
+
+application_domain(test1_t, test1_exec_t)
+ubac_constrained(test1_t)
+
+allow test1_t unconfined_t:file { execute read open execute_no_trans getattr };
+allow test1_t unconfined_t:chr_file { getattr };
+allow test1_t user_devpts_t:chr_file { getattr };
+allow test1_t unconfined_t:fd { use };
+allow test1_t unconfined_t:process { sigchld };
+allow test1_t sshd_t:fd { use };
+
+allow unconfined_t test1_t:process { transition };
+
+allow test1_t user_devpts_t:file { read write };
+allow test1_t user_devpts_t:chr_file { getattr read write };

@@ -1,0 +1,16 @@
+type test2_t;
+type test2_exec_t;
+
+application_domain(test2_t, test2_exec_t)
+ubac_constrained(test2_t)
+
+allow test2_t unconfined_t:chr_file { getattr };
+allow test2_t user_devpts_t:chr_file { getattr };
+allow test2_t unconfined_t:fd { use };
+allow test2_t unconfined_t:process { sigchld };
+allow test2_t sshd_t:fd { use };
+
+allow unconfined_t test2_t:process { transition };
+
+allow test2_t user_devpts_t:file { read write };
+allow test2_t user_devpts_t:chr_file { getattr read write };
