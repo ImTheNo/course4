@@ -1,0 +1,315 @@
+\documentclass{beamer}
+\usepackage[english,russian]{babel}
+\usepackage[utf8]{inputenc}
+\usetheme{Singapore} %Goettingen,  Montpellier, Singapore
+
+% \usetheme[pageofpages=of,% String used between the current page and the
+%                          % total page count.
+%           bullet=circle,% Use circles instead of squares for bullets.
+%           titleline=true,% Show a line below the frame title.
+%           alternativetitlepage=true,% Use the fancy title page.
+%           titlepagelogo= msu, %logo-polito,% Logo for the first page.
+%           %watermark=msu,%watermark-polito,% Watermark used in every page.
+%           %watermarkheight=100px,% Height of the watermark.
+%           %watermarkheightmult=2,% The watermark image is 4 times bigger
+%                                 % than watermarkheight.
+%           ]{Torino}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+\usetikzlibrary{shapes.geometric,shapes.arrows,decorations.pathmorphing}
+\usetikzlibrary{matrix,chains,scopes,positioning,arrows,fit,arrows,backgrounds}
+\tikzstyle{block} = [rectangle, draw,  text width=20em, text centered, minimum height=4em, top color=white,
+    bottom color=blue!50!black!20, draw=blue!40!black!60, very
+    thick, rounded corners]
+\tikzstyle{de} = [diamond, drawshade, top color=white,
+    bottom color=blue!50!black!20, draw=blue!40!black!60, very
+    thick, text centered, rounded corners, text width=6em, text badly centered, node distance=3cm, inner sep=0pt]
+
+%     text width=5em, text centered, rounded corners, minimum height=4em]
+ \tikzstyle{decision} = [diamond, drawshade,  top color=white,
+    bottom color=blue!50!black!20, draw=blue!40!black!60, very
+    thick, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+
+ 
+
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+   
+\tikzset{blue dotted/.style={draw=blue!50!white, line width=1pt,
+                               dash pattern=on 1pt off 4pt on 6pt off 4pt,
+                                inner sep=4mm, rectangle, rounded corners}}
+\tikzstyle{blockwhite} = [rectangle, draw,  text width=5em, text centered, minimum height=4em, draw=white, fill=white]
+\tikzstyle{bl} = [block, shade, top color=white,
+    bottom color=blue!50!black!20, draw=blue!40!black!60, very
+    thick, text width=20em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{blk} = [block, shade, top color=white,
+    bottom color=blue!50!black!20, draw=blue!40!black!60, very
+    thick, text width=9em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{blkred}=[blk, bottom color=red!50!black!20]
+\tikzstyle{blkyell}=[blk, bottom color=yellow!50!black!20]
+\tikzstyle{blb} = [block, shade, top color=white,
+    bottom color=blue!50!black!20, draw=blue!40!black!60, very
+    thick, text width=10em, text centered, rounded corners, minimum height=4em]
+
+\def\watermarkoff{\def\beamer@decolines@watermark{}}
+%\setbeamercolor{alert text}{fg=green}
+
+\usepackage{wrapfig}
+\begin{document}
+\title{Интеграция средств гранулярного контроля безопасности поведения
+        приложений в ОС Линукс}  
+\author{\small{Выполнил: Фёдор Сахаров}\\ \small{Научный руководитель:  Гамаюнов Д. Ю.}}
+\institute{Лаборатория вычислительных комплексов ВМК \\ МГУ имени М.В.Ломоносова}
+\date{Москва, 2011} 
+% Создание заглавной страницы
+%\frame{\titlepage}
+\begin{frame}[t, plain] 
+\watermarkoff
+ \titlepage
+\end{frame}
+
+
+\begin{comment}
+\begin{frame}{Задача контроля поведения приложения на узлах.}
+\watermarkoff
+\begin{block}{Контроль поведения приложения на узлах}
+ \begin{itemize}
+  \item Использование уязвимости в программном обеспечении для получения доступа к системе.
+  \item Повышение уровня безопасности за счет дополнения системы механизмами контроля поведения приложений. 
+\end{itemize}
+\end{block}
+
+\begin{block}{Принципы на которых должен строится контроль поведения приложений}
+    \begin{enumerate}
+      \item Давать только необходимые привилегии и никакие другие.
+      \item Давать привилегии только тем частям программы, которым они действительно нужны.
+      \end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Введение в предметную область. SELinux}
+% картинка
+\begin{center}
+\scalebox{.40}{
+\includegraphics{selinux.png}
+}
+\end{center}
+\end{frame}
+
+
+% \begin{frame}{Граф потока управления для ftpd}
+% На картинке изображен упрощенный граф
+% потока управления утилиты ftpd: два типа пользователей, различные действия различным пользователям.
+% В качестве модели программы используется граф потока управления
+% Политика SElinux задается для всей программы целиком. 
+% На сладе приведены примеры тех действий которые могкт быть в политике
+% Почему это плохо: 
+%  -- уязвимость в считывании команды (показать на графе)
+%  -- последствия эксплуатации
+%  -- будет разрешено все, что задано политикой
+% -- поэтому надо по-другому => переход к постановке задачи 
+
+% \begin{columns}
+%   \begin{column}{0.7\textwidth}
+%     \begin{itemize}
+% 	\item чтение конфигурационных файлов
+% 	\item создение сокета, передача данных по сокету
+% 	\item чтение, запись в файл data.
+%     \end{itemize}
+% \end{column}
+% 
+% \begin{column}{0.9\textwidth}
+% \scalebox{.25}{
+%  \input{miniftp_controlflow.tex}
+% }
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+
+
+\begin{frame}{Граф потока управления для ftpd}
+% На картинке изображен упрощенный граф
+% потока управления утилиты ftpd: два типа пользователей, различные действия различным пользователям.
+% В качестве модели программы используется граф потока управления
+% Политика SElinux задается для всей программы целиком. 
+% На сладе приведены примеры правил политики (устно проговорить некоторые из них)
+% Почему это плохо: 
+%  -- уязвимость в считывании команды (показать на графе)
+%  -- последствия эксплуатации
+%  -- будет разрешено все, что задано политикой
+% -- поэтому надо по-другому => переход к постановке задачи 
+
+\begin{columns}
+  \begin{column}{0.9\textwidth}
+$\ \ \ \ can\_network(ftpd\_t)$\\
+$\ \ \ \ can\_ypbind(ftpd\_t)$\\
+$\ \ \ \ allow\ ftpd\_t\ self:unix\_stream\_socket;$\\
+$\ \ \ \ allow\ ftpd\_t\ self:unix create\_socket\_perms;$\\
+$\ \ \ \ allow\ ftpd\_t\ self:config\_file rw\_file\_perms;$\\
+$\ \ \ \ allow\ ftpd\_t\ home\_user\_t:dir \{ getattr\ search \};$\\
+$\ \ \ \ allow\ ftpd\_t\ data\_t:file \{ getattr\ read\ write\};$
+\end{column}
+
+\begin{column}{0.9\textwidth}
+\scalebox{.25}{
+ \input{miniftp_controlflow.tex}
+}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
+\end{comment}
+
+\begin{frame}{Постановка задачи}
+ \begin{block}{Цель:}
+  \small{Pасширение метода контроля поведения приложения, основанного на использовании политик, для увеличения гранулярности при контроле поведения приложений.}
+ \end{block}
+\begin{block}{Задача:}
+\small{Разработка и реализация средства гранулярного контроля
+        поведения разбитого на состояния приложения со стороны
+        ядра Линукс.}
+ \end{block}
+ \begin{block}{Для достижения указанной цели необходимо:}
+  \begin{itemize}
+   \item \small{Составить обзор существующих систем безопасности уровня ядра ОС.}
+   \item \small{Разработать набор инструментов для разметки
+        приложений контрольными точками.}
+   \item \small{Разработать подсистему ядра Линукс, способную
+        переключать профиль SELinux приложения при изменении состояния.}
+   \item \small{Провести испытание средства на уязвимом приложении.}
+  \end{itemize}
+ \end{block}
+\end{frame}
+
+\begin{frame}{Обзор систем безопасности уровня ядра ОС.}
+В данной работе был сделан обзор 4 систем безопасности уровня ядра ОС.
+Критерии обзора:
+
+\begin{itemize}
+ \item Реализованные модели безопасности.
+ \item Возможность изменять матрицу доступа в процессе исполнения.
+ \item Динамическая смена контекстов.
+ \item Классы вредоносных действий, предотвращаемых системой.
+\end{itemize}
+ Обзор показал, что ни одна из существующих систем безопасности 
+ уровня ядра ОС не предоставляет возможности динамически изменять
+ контекст приложения.
+ 
+ \end{frame}
+
+
+\begin{frame}{Анализ поведения приложения с использованием контрольных точек}
+Для решения поставленной задачи была реализована система,
+позвляющая изменять контекст безопасности приложения в зависимости
+от его внутреннего состояния.
+Реализованная система отвечает следующим требованиям:
+\begin{itemize}
+\item Наблюдение и изменение контекстов производится
+        <<прозрачно>> для приложения.
+\item Наблюдаемое приложение не модифицируется.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Изменения ядра ОС Линукс}
+Основная версия ядра ОС Линукс не позволяет динамически
+изменять контексты безопасности приложения.
+
+Для решения поставленной задачи были внесены следующие
+изменения в ядро Линукс:
+
+\begin{itemize}
+\item Возможность динамически изменять контексты приложений
+        из модулей ядра
+\item Возможность отслеживать события запуска новых процессов
+        в системе
+\end{itemize}
+\end{frame}
+ 
+
+
+ 
+
+% ----------------------------------------------------
+\begin{frame}[fragile]{Контрольные точки}
+Контрольной точкой считается адрес в сегменте кода
+виртуального адресного пространства приложения.
+
+Для наблюдения за попаданием исполнения на контрольные
+точки были использованы подсистемы utrace и uprobes
+ядра Linux.
+
+Данные системы позволяют:
+\begin{itemize}
+\item Отслеживать события попадания исполнения на контрольные точки
+\item Отслеживать системные вызовы и другие события в наблюдаемом приложении
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Результаты}
+\begin{block}{Результаты}
+\begin{itemize}
+\item Проведен обзор существующих систем безопасности уровня ядра ОС.
+\item Были внесены изменения в ядро Линукс, позволяющие производить
+        динамическую смену контекстов в приложении.
+\item Реализован модуль ядра, позволяющий контролировать поведение
+        приложений с использованием контрольных точек и изменять
+        контекст безопасности наблюдаемых приложений в зависимости от
+        их внутреннего состояния.
+
+\item Проведено испытание реализованного модуля на модельном примере
+        уязвимого приложения.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Характеристика реализации}
+ 
+\begin{tabular}{| l | c | } 
+\hline
+  Язык программирования & C, Python\\ \hline
+  Операционная система &  Linux \\ \hline  
+  Кол-во строк кода & n \\ 
+\hline
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Результаты}
+
+\begin{block}{Результаты}
+\begin{itemize}
+ \item Проведен обзор и сравнительный анализ средств построения моделей нормального поведения приложений.
+ \item Разработан метод автоматизированного построения нормального поведения приложений для ОС Linux и языка Си.
+ \item Реализовано средство для приложений, написанных для ОС Linux на языке Си, позволяющие разбивать программу на набор блоков.
+ \item Проведено испытание реализованного средства на уязвимом приложений.
+\end{itemize}
+\end{block}
+\end{frame}
+\end{comment}
+
+
+
+% ----------------------------------------------------
+  \begin{frame}{Спасибо за внимание. Вопросы?}
+\begin{center}
+\LARGE{Спасибо за внимание. Вопросы?}
+\end{center}
+
+   
+  \end{frame}
+% ----------------------------------------------------
+ 
+
+\end{document}
+
+
