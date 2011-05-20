@@ -1,0 +1,27 @@
+\begin{tikzpicture}[->,<->,>=latex,grow=right,
+    bd/.style={draw=blue!50!white, line width=1pt, dash pattern=on 1pt off 4pt on 6pt off 4pt,
+                                rectangle, rounded corners}
+    ]
+\tikzstyle{state} = [draw,rounded corners, fill=white, rectangle, minimum height=3em, minimum width=5em, node distance=7em, font={\sffamily\small}]
+\tikzstyle{stateEdgePortion} = [black,thick];
+\tikzstyle{stateEdge} = [stateEdgePortion,->, minimum width=10em,node distance=8em];
+\tikzstyle{shitEdge} = [stateEdgePortion,<->, minimum width=10em,node distance=8em];
+\tikzstyle{edgeLabel} = [pos=0.5, text centered, font={\sffamily\small}];
+
+\node[state, name=main] {main};
+\node[state, name=a, right of=main, below of=main] {a};
+\node[state, name=f, right of=a, node distance=4cm] {f};
+
+\draw[->] (main) edge[stateEdge, bend left=22.5] (a);
+\draw[->] (a) edge[stateEdge, bend right=22.5] (f);
+\draw[->] (f) edge[stateEdge, bend right=22.5, ] (a);
+\draw[->] (a) edge[stateEdge, bend left=22.5] (main);
+
+\node (111) [bd, inner sep=4mm, fit = (f)] {};
+\node (222) [bd, inner sep=4mm, fit = (a) (main)] {};
+
+\node at(111) [right, inner sep=20mm] {test1\_t};
+\node at(222) [left, inner sep=3cm] {test2\_t};
+
+\end{tikzpicture}
+
