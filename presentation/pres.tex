@@ -1,7 +1,21 @@
 \documentclass{beamer}
 \usepackage[english,russian]{babel}
 \usepackage[utf8]{inputenc}
-\usetheme{Singapore} %Goettingen,  Montpellier, Singapore
+%  \usetheme{Singapore} %Goettingen,  Montpellier, Singapore
+
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+          alternativetitlepage=true,% Use the fancy title page.
+          titlepagelogo= msu, %logo-polito,% Logo for the first page.
+          watermark=msu,%watermark-polito,% Watermark used in every page.
+          watermarkheight=100px,% Height of the watermark.
+          watermarkheightmult=4,% The watermark image is 4 times bigger
+                                % than watermarkheight.
+          ]{Torino}
+
+\usecolortheme{freewilly}
 
 % \usetheme[pageofpages=of,% String used between the current page and the
 %                          % total page count.
@@ -217,23 +231,27 @@ $\ \ \ \ allow\ ftpd\_t\ data\_t:file \{ getattr\ read\ write\};$
 \end{frame}
 
 \begin{frame}{Постановка задачи}
- \begin{block}{Цель:}
-  \small{Pасширение метода контроля поведения приложения, основанного на использовании политик, для увеличения гранулярности при контроле поведения приложений.}
- \end{block}
-\begin{block}{Задача:}
-\small{Разработка и реализация средства гранулярного контроля
+  \begin{small}
+\textcolor{blue}{\textbf{Цель:}} расширение метода контроля поведения
+        приложения, основанного на использовании политик,
+        для увеличения гранулярности при контроле поведения приложений.
+
+\textcolor{blue}{\textbf{Задача:}} разработка и реализация средства гранулярного контроля
         поведения разбитого на состояния приложения со стороны
-        ядра Линукс.}
- \end{block}
+        ядра Линукс.
+
+\end{small}
  \begin{block}{Для достижения указанной цели необходимо:}
+  \begin{small}
   \begin{itemize}
-   \item \small{Составить обзор существующих систем безопасности уровня ядра ОС.}
-   \item \small{Разработать набор инструментов для разметки
+   \item {Составить обзор существующих систем безопасности уровня ядра ОС.}
+   \item {Разработать набор инструментов для разметки
         приложений контрольными точками.}
-   \item \small{Разработать подсистему ядра Линукс, способную
+   \item {Разработать подсистему ядра Линукс, способную
         переключать профиль SELinux приложения при изменении состояния.}
-   \item \small{Провести испытание средства на уязвимом приложении.}
+   \item {Провести испытание средства на уязвимом приложении.}
   \end{itemize}
+  \end{small}
  \end{block}
 \end{frame}
 
@@ -259,7 +277,7 @@ $\ \ \ \ allow\ ftpd\_t\ data\_t:file \{ getattr\ read\ write\};$
 
 \begin{tiny}
 \begin{center}
-\begin{tabular}{|p{2cm}|p{1.5cm}|p{2cm}|p{2cm}|p{2cm}|} 
+\begin{tabular}{|p{1.5cm}|p{1.0cm}|p{2cm}|p{2cm}|p{3cm}|} 
 \hline
 Система Безопасности & Модели & Возможность менять матрицу 
 доступа в процессе выполнения & 
@@ -347,9 +365,9 @@ Trusted BSD & MAC, ACL, RBAC, Audit & Отсутствует & Существу�
 \end{frame}
 \begin{frame}[fragile]{Пример разбиения уязвимого приложения}
 \begin{figure}
-% \centering
+\centering
 \scalebox{.70}{\input{part.tex}}
-\caption{Разбиение тестового приложения.}
+%  \caption{Разбиение тестового приложения.}
 \end{figure}
 \end{frame}
 
