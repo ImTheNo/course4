@@ -2,17 +2,17 @@ LATEX=latex
 PDFLATEX=pdflatex
 DATE=$(shell date +%Y-%m-%d)
 
-dipl = dipl
+course4 = course4
 PARTS = part.tex part1.tex part2.tex part3.tex part4.tex part5.tex part6.tex finalresult.tex selinux.tex
 
-$(dipl).pdf:$(dipl).tex $(PARTS)
-	$(PDFLATEX) $(dipl).tex
+$(course4).pdf:$(course4).tex $(PARTS)
+	$(PDFLATEX) $(course4).tex
 
-$(dipl).ps:$(dipl).tex
-	$(LATEX) $(dipl).tex
+$(course4).ps:$(course4).tex
+	$(LATEX) $(course4).tex
 
-pdf: $(dipl).pdf
+pdf: $(course4).pdf
 
-ps: $(dipl).ps
+ps: $(course4).ps
 
 defalult: pdf
