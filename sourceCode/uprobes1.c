@@ -1,2 +1,3 @@
-#include <linux/uprobes.h>
-int register_uprobe(struct uprobe *u); 
+int uprobe_register(struct inode *inode, loff_t offset, struct
+        uprobe_consumer *uc);
+
