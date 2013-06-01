@@ -8,20 +8,17 @@
 \tikzstyle{shitEdge} = [stateEdgePortion,<->, minimum width=10em,node distance=8em];
 \tikzstyle{edgeLabel} = [pos=0.5, text centered, font={\sffamily\small}];
 
-\node[state, name=main] {main};
-\node[state, name=a, right of=main, below of=main] {a};
-\node[state, name=f, right of=a, node distance=4cm] {f};
+\node[state, name=r] {read\_config};
+\node[state, name=p, right of=r, node distance=4cm] {process\_input};
 
-\draw[->] (main) edge[stateEdge, bend left=22.5] (a);
-\draw[->] (a) edge[stateEdge, bend right=22.5] (f);
-\draw[->] (f) edge[stateEdge, bend right=22.5, ] (a);
-\draw[->] (a) edge[stateEdge, bend left=22.5] (main);
+\draw[->] (r) edge[stateEdge, bend right=22.5] (p);
+\draw[->] (p) edge[stateEdge, bend right=22.5, ] (p);
 
-\node (111) [bd, inner sep=4mm, fit = (f)] {};
-\node (222) [bd, inner sep=4mm, fit = (a) (main)] {};
+\node (111) [bd, inner sep=4mm, fit = (p)] {};
+\node (222) [bd, inner sep=4mm, fit = (r)] {};
 
-\node at(111) [right, inner sep=20mm] {test1\_t};
-\node at(222) [left, inner sep=3cm] {test2\_t};
+\node at(111) [right, inner sep=20mm] {test1\_init\_t};
+\node at(222) [left, inner sep=3cm] {test1\_worker\_t};
 
 \end{tikzpicture}
 

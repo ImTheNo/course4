@@ -4,9 +4,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
-
-#include "module.h"
-#define MODULE_DEVICE "/dev/module"
+#include "sad_droid.h"
 
 int main(int argc, char ** argv)
 {
@@ -14,20 +12,15 @@ int main(int argc, char ** argv)
     int res;
     int fd;
 
-    strcpy(tr.bin_file, "/root/module/module_test2");
-    tr.addr = 0x4005f8;
+    strcpy(tr.bin_file, "/usr/bin/app");
+    tr.addr = 0xbf3705f2;
     memset(tr.new_cont,0,sizeof(tr.new_cont));
-    strncpy(tr.new_cont, "system_u:system_r:module2_t:s0-s0:c0.c1023", CONT_MAXLEN-1);
-
-    fd = open( MODULE_DEVICE, O_RDWR );
-
+    strncpy(tr.new_cont, "system_u:system_r:test1_log_t:s0-s0:c0.c1023", CONT_MAXLEN-1);
+    fd = open("/dev/sad_droid" , O_RDWR);
     if (fd < 0) {
         return (-1);
     }
-
     res = ioctl(fd, MODULE_IOCTL_SET_BREAK, &tr);
-
     close(fd);
-
     return 0;
 }
